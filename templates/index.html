@@ -4,8 +4,38 @@
     <meta charset="UTF-8">
     <title>SWAPI| Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="../static/js/script.js"></script>
+    <script type="module" src="../static/js/script.js"></script>
 </head>
 <body>
-Page
+    <div id="top_bar">
+
+    </div>
+
+    <div>Star Wars Universe Planets</div>
+
+    <div id="change_page_btns">
+        <button id="prev_page_btn">Previous</button>
+        <button id="next_page_btn">Next</button>
+    </div>
+
+    <div id="table_content">
+        <table>
+            <thead>
+                {% for name in header %}
+                    <th>{{ name }}</th>
+                {% endfor %}
+            </thead>
+            <tbody>
+                {% for row in content %}
+                    <tr>
+                        {% for column in row %}
+                            <th> {{ column }} </th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 </html>

@@ -1,4 +1,4 @@
-
+import {addResponseOnClick} from "./changePageLogic.js";
 
 // fetch('https://swapi.py4e.com/api/people/1')
 //   .then(response => response.json())
@@ -20,4 +20,4 @@
 // }
 //
 // sendUserInfo();
-
+document.addEventListener("DOMContentLoaded", addResponseOnClick)

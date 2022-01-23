@@ -1,14 +1,26 @@
 from flask import Flask, render_template, request, url_for, redirect
 import json
 import etl_api_load_data
+from etl_database_transform_data import get_predared_planet_database_content, CONTENT_TABLE_HEADER
 
 app = Flask(__name__)
 
 
+@app.route('/', methods=['POST','GET'])
+def home_page():
+    table_header = CONTENT_TABLE_HEADER
+    table_content = get_predared_planet_database_content()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+    return render_template('index.html', header=table_header, content=table_content)
+
+
+@app.route('/page/<page_id>', methods=['POST','GET'])
+def previous_page(page_id):
+    table_header = CONTENT_TABLE_HEADER
+    start_row_number = int(page_id) * 10 - 10
+    table_content = get_predared_planet_database_content(start_row_number)
+
+    return render_template('index.html', header=table_header, content=table_content)
 
 
 # @app.route('/processUserInfo/<string:userInfo>', methods=['POST'])

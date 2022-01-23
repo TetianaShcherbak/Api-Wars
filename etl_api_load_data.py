@@ -1,6 +1,6 @@
 from etl_api_transform_data import get_prepared_planets_database
 import database_common
-from data_manager import get_last_update_time_planets_database
+from etl_database_extract_data import get_last_update_time_planets_database
 import  psycopg2
 from datetime import datetime, timedelta
 
@@ -11,10 +11,12 @@ UPDATE_DATABASE_TIME_DELTA = 4
 def refresh_planets_database(time_delta=UPDATE_DATABASE_TIME_DELTA):
     current_time = datetime.now()
     last_update_time = get_last_update_time_planets_database()
+    if last_update_time is None:
+        last_update_time = "2022-01-01 00:00:00"
     delta = timedelta(hours=time_delta)
     next_update_time = datetime.strptime(last_update_time, "%Y-%m-%d %H:%M:%S") + delta
     if current_time > next_update_time:
-        insert_planets_database(current_time)
+        insert_planets_database(current_time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
 def insert_planets_database(update_time):

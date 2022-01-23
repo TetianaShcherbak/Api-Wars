@@ -20,6 +20,7 @@ CREATE TABLE planet_votes (
 
 DROP TABLE IF EXISTS public.planets;
 CREATE TABLE planets (
+    id serial NOT NULL,
     name VARCHAR,
     diameter VARCHAR,
     climate VARCHAR,

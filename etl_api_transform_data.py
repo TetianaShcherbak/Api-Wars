@@ -7,9 +7,10 @@ PLANET_MAIN_DATA_KEYS = ['name', 'diameter', 'climate', 'terrain', 'surface_wate
 def get_prepared_planets_database():
     prepared_planets_database = []
 
-    for record in PLANETS_DATABASE:
-        prepared_record = get_prepared_planet_data(record)
-        prepared_planets_database.append(prepared_record)
+    for response in PLANETS_DATABASE:
+        for record in response:
+            prepared_record = get_prepared_planet_data(record)
+            prepared_planets_database.append(prepared_record)
 
     return prepared_planets_database
 
@@ -58,3 +59,4 @@ def get_prepared_population(amount):
 
     return prepared_amount
 
+get_prepared_planets_database()
