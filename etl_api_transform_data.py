@@ -1,18 +1,48 @@
-from etl_api_extract_data import get_planets_database
+from etl_api_extract_data import get_data_for_planets_database, get_data_for_planet_residents_database
 
-PLANETS_DATABASE = get_planets_database()
+PLANETS_DATABASE = get_data_for_planets_database()
+RESIDENTS_DATABASE = get_data_for_planet_residents_database()
+
 PLANET_MAIN_DATA_KEYS = ['name', 'diameter', 'climate', 'terrain', 'surface_water', 'population']
+RESIDENT_MAIN_DATA_KEYS = ['name', 'height', 'mass', 'skin_color', 'hair_color', 'eye_color', 'birth_year', 'gender', 'planet_name']
 
 
-def get_prepared_planets_database():
-    prepared_planets_database = []
+def get_prepared_data_for_planets_database():
+    prepared_data_for_planets_database = []
 
-    for response in PLANETS_DATABASE:
-        for record in response:
+    for page in PLANETS_DATABASE:
+        for record in page:
             prepared_record = get_prepared_planet_data(record)
-            prepared_planets_database.append(prepared_record)
+            prepared_data_for_planets_database.append(prepared_record)
 
-    return prepared_planets_database
+    return prepared_data_for_planets_database
+
+
+def get_prepared_data_for_planet_residents_database():
+    prepared_data_for_planet_residents_database = []
+
+    for page in RESIDENTS_DATABASE:
+        for record in page:
+            prepared_record = get_prepared_resident_data(record)
+            prepared_data_for_planet_residents_database.append(prepared_record)
+
+    return prepared_data_for_planet_residents_database
+
+
+def get_prepared_resident_data(resident_data: dict):
+    prepared_resident_data = dict()
+
+    for key, value in resident_data.items():
+        if key in RESIDENT_MAIN_DATA_KEYS:
+
+            if key == 'height':
+                prepared_resident_data[key] = get_prepared_height(value)
+            elif key == 'mass':
+                prepared_resident_data[key] = get_prepared_mass(value)
+            else:
+                prepared_resident_data[key] = value
+
+    return prepared_resident_data
 
 
 def get_prepared_planet_data(planet_data: dict):
@@ -59,4 +89,23 @@ def get_prepared_population(amount):
 
     return prepared_amount
 
-get_prepared_planets_database()
+
+def get_prepared_height(height):
+    prepared_height = height
+
+    if height == "none":
+        return prepared_height
+
+    if height != "unknown":
+        prepared_height = str(int(height)/100) + ' m'
+
+    return prepared_height
+
+
+def get_prepared_mass(mass):
+    prepared_mass = mass
+
+    if mass != "unknown":
+        prepared_mass = mass + ' kg'
+
+    return prepared_mass

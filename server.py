@@ -37,7 +37,6 @@ def previous_page(page_id):
 
 
 if __name__ == "__main__":
-    etl_api_load_data.refresh_planets_database()
     app.run(
         host='0.0.0.0',
         port=8000,

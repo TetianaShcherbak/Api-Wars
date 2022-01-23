@@ -1,6 +1,7 @@
 ALTER TABLE IF EXISTS ONLY public.users DROP CONSTRAINT IF EXISTS pk_user_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.planet_votes DROP CONSTRAINT IF EXISTS pk_id CASCADE;
-ALTER TABLE IF EXISTS ONLY public.planets DROP CONSTRAINT IF EXISTS pk_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.planets DROP CONSTRAINT IF EXISTS pk_name CASCADE;
+ALTER TABLE IF EXISTS ONLY public.planet_residents DROP CONSTRAINT IF EXISTS pk_name CASCADE;
 
 DROP TABLE IF EXISTS public.users;
 CREATE TABLE users (
@@ -30,6 +31,21 @@ CREATE TABLE planets (
     last_update_time VARCHAR
 );
 
+DROP TABLE IF EXISTS public.planet_residents;
+CREATE TABLE planet_residents (
+    id serial NOT NULL,
+    name VARCHAR,
+    height VARCHAR,
+    mass VARCHAR,
+    skin_color VARCHAR,
+    hair_color VARCHAR,
+    eye_color VARCHAR,
+    birth_year VARCHAR,
+    gender VARCHAR,
+    planet_name VARCHAR,
+    last_update_time VARCHAR
+);
+
 ALTER TABLE ONLY users
     ADD CONSTRAINT pk_user_id PRIMARY KEY (user_id);
 
@@ -45,6 +61,5 @@ ALTER TABLE ONLY planet_votes
 ALTER TABLE ONLY planet_votes
     ADD CONSTRAINT fk_planet_name FOREIGN KEY (planet_name) REFERENCES planets(name);
 
---INSERT INTO users VALUES (0, 0);
---INSERT INTO question_tag VALUES (7, 4);
-
+ALTER TABLE ONLY planet_residents
+    ADD CONSTRAINT fk_planet_name FOREIGN KEY (planet_name) REFERENCES planets(name);
