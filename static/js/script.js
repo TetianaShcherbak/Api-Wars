@@ -1,4 +1,5 @@
 import {addResponseOnClick} from "./changePageLogic.js";
+import {setViewResidentsButton} from "./residentsButton.js";
 
 // fetch('https://swapi.py4e.com/api/people/1')
 //   .then(response => response.json())
@@ -21,3 +22,4 @@ import {addResponseOnClick} from "./changePageLogic.js";
 //
 // sendUserInfo();
 document.addEventListener("DOMContentLoaded", addResponseOnClick)
+setViewResidentsButton();

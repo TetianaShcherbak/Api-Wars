@@ -28,3 +28,16 @@ def get_planet_database_content(cursor, start_row_number, row_amount):
         ORDER BY id
         LIMIT {row_amount} OFFSET {start_row_number}""")
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_planet_residents_amount(cursor,planet_name):
+    cursor.execute(f"""
+        SELECT COUNT(name) FROM planet_residents
+        GROUP BY  planet_name
+        HAVING planet_name='{planet_name}'""")
+    result = cursor.fetchone()
+    if result:
+        return dict(result)['count']
+    else:
+        return None
