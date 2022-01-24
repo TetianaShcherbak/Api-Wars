@@ -50,4 +50,27 @@ def get_planet_residents_data(cursor, planet_name):
             SELECT * FROM planet_residents
             WHERE planet_name='{planet_name}'""")
 
-    return cursor.fetchall()
+    return cursor.fetchall()\
+
+
+@database_common.connection_handler
+def is_email_exists(cursor, email):
+    cursor.execute("""
+        SELECT username FROM users
+        WHERE username=%(email)s;""", {'email': email})
+
+    email = cursor.fetchone()
+    return email is not None
+
+
+@database_common.connection_handler
+def get_password_by_email(cursor, email):
+    cursor.execute("""
+        SELECT hashed_password FROM users
+        WHERE username=%(email)s;""", {'email': email})
+
+    hashed_password = cursor.fetchone()
+    print(hashed_password)
+    print(dict(hashed_password)['hashed_password'])
+    return dict(hashed_password)['hashed_password']
+

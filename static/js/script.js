@@ -1,10 +1,12 @@
 import {addResponseOnClick} from "./changePageLogic.js";
 import {setViewResidentsButton} from "./residentsButton.js";
+import {createTopNav} from "./topNav.js";
 
 
-document.addEventListener("DOMContentLoaded", addResponseOnClick)
+createTopNav();
 setViewResidentsButton();
 
+document.addEventListener("DOMContentLoaded", addResponseOnClick);
 
 
 // fetch('https://swapi.py4e.com/api/people/1')
@@ -27,4 +29,3 @@ setViewResidentsButton();
 // }
 //
 // sendUserInfo();
-

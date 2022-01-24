@@ -2,6 +2,17 @@ body{
     background-color: peachpuff;
 }
 
+#table {
+    padding: 2px;
+    background-color: lightgrey;
+    justify-content: center;
+}
+
+table, th, td {
+    border: 1px solid gray;
+    align-items: center;
+}
+
 .modal {
     position: fixed;
     left: 0;
@@ -53,4 +64,28 @@ body{
 .residents-table{
     overflow: auto;
     width: 100%;
+}
+
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
 }
