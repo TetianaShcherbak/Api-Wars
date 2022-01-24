@@ -1,3 +1,6 @@
+import {onClickResponse} from "./popupResponseOnResidentsButton.js";
+
+
 export function setViewResidentsButton(){
    const residentsColumnIndex = getResidentsColumnIndex();
    const table = document.getElementById("table");
@@ -27,7 +30,7 @@ function setButtonForNotNonCell(cell){
 }
 
 
-function getResidentsColumnIndex(){
+function getResidentsColumnIndex(columnName='Residents'){
      let residentsColumnIndex = 0;
     const table = document.getElementById("table");
     const thead = table.children[0];
@@ -35,7 +38,7 @@ function getResidentsColumnIndex(){
     for (const tr of thead.children){
         let columnIndex = 0;
         for (const th of tr.children){
-            if (th.innerHTML === 'Residents'){
+            if (th.innerHTML === columnName){
                 residentsColumnIndex = columnIndex;
                 return residentsColumnIndex;
             }
@@ -45,38 +48,3 @@ function getResidentsColumnIndex(){
 }
 
 
-function onClickResponse(){
-    createPopupModel();
-    const modal = document.querySelector(".modal");
-    showModal(modal);
-    const closeButton = document.querySelector(".close-button");
-    closeButton.addEventListener("click", hideModal);
-}
-
-
-function createPopupModel(){
-    let divModel = document.createElement('div');
-    divModel.classList.add('modal');
-    let divContent = document.createElement('div');
-    divContent.classList.add('modal-content');
-    let closeButton = document.createElement('span');
-    closeButton.classList.add('close-button');
-    closeButton.textContent = "X";
-    let text = document.createElement('h1');
-    text.textContent = "Hello, I am a modal!";
-    divContent.appendChild(closeButton);
-    divContent.appendChild(text);
-    divModel.appendChild(divContent);
-    document.body.appendChild(divModel);
-}
-
-
-function showModal(modal) {
-    modal.classList.toggle("show-modal");
-}
-
-
-function hideModal() {
-    const modal = document.querySelector(".modal");
-    modal.classList.remove("show-modal");
-}

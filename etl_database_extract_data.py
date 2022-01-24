@@ -27,6 +27,7 @@ def get_planet_database_content(cursor, start_row_number, row_amount):
         SELECT * FROM  planets
         ORDER BY id
         LIMIT {row_amount} OFFSET {start_row_number}""")
+
     return cursor.fetchall()
 
 
@@ -41,3 +42,12 @@ def get_planet_residents_amount(cursor,planet_name):
         return dict(result)['count']
     else:
         return None
+
+
+@database_common.connection_handler
+def get_planet_residents_data(cursor, planet_name):
+    cursor.execute(f"""
+            SELECT * FROM planet_residents
+            WHERE planet_name='{planet_name}'""")
+
+    return cursor.fetchall()

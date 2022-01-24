@@ -34,7 +34,7 @@ function goToNextPage(){
 }
 
 
-function getCurrentPage(){
+export function getCurrentPage(){
     const url = window.location.href;
     const lastUrlChar = String(url).slice(-1);
     const currentPage = lastUrlChar === '/' ? 1 : lastUrlChar;
